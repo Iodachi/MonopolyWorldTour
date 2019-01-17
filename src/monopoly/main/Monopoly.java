@@ -123,7 +123,7 @@ public class Monopoly extends Observable{
 		if(currentEntity instanceof GoToJail) {
 
 		} else if(currentEntity instanceof Tax) {
-			player.deductFunds(700);
+			player.deductFunds(700);	//pay tax
 		} else if(currentEntity instanceof Chance) {
 
 		} else if(currentEntity instanceof Fate) {
@@ -146,6 +146,12 @@ public class Monopoly extends Observable{
 		return entityStatus;
 	}
 	
+	/**
+	 * Player buys the current location of a property
+	 * @param player
+	 * @param property
+	 * @throws InvalidMove
+	 */
 	public void buyProperty(Player player, Property property) throws InvalidMove {
 		Entity currentEntity = board.getEntities().get(player.getCurrentLocation());
 		
@@ -174,6 +180,12 @@ public class Monopoly extends Observable{
 		player.buyProperty(property);
 	}
 	
+	/**
+	 * Player build house on his current position, if it is a country type
+	 * @param player
+	 * @param country
+	 * @throws InvalidMove
+	 */
 	public void buildHouses(Player player, Country country) throws InvalidMove {
 		Entity currentEntity = board.getEntities().get(player.getCurrentLocation());
 		if(currentEntity != country) {
@@ -204,6 +216,7 @@ public class Monopoly extends Observable{
 		}
 		
 		//TODO actually build
+		player.buildHouse(country);
 	}
 	
 	public void payRent(Player payer, Player getter, int amount) throws InvalidMove {
@@ -231,6 +244,9 @@ public class Monopoly extends Observable{
 		this.movingStage = movingStage;
 	}
 	
+	/**
+	 * Current player finishes the round, move on to the next
+	 */
 	public void nextPlayer() {
 		int index = players.indexOf(currentPlayer);
 		if(index == players.size() - 1)

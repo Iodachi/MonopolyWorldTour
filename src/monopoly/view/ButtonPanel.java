@@ -38,8 +38,10 @@ public class ButtonPanel extends JToolBar {
 							int option = JOptionPane.showConfirmDialog(null, name + " is not occupied, $" + ((Property) e).getPrice() + ".\nDo you wish to buy it?", "Waiting player buy property...", JOptionPane.YES_NO_OPTION);
 							if(option == JOptionPane.YES_OPTION)
 								game.buyProperty(currentPlayer, (Property)e);
-						} else if(status == 2) {
-
+						} else if(status == 2) {	//build house
+							int option = JOptionPane.showConfirmDialog(null, name + " is occupied by yourself, $" + ((Country) e).getConstructionPrice() + ".\nDo you wish to build house?", "Waiting player build house...", JOptionPane.YES_NO_OPTION);
+							if(option == JOptionPane.YES_OPTION)
+								game.buildHouses(currentPlayer, (Country)e);
 						} else if(status == 3) {
 							Player owner = ((Property) e).getOwner();
 							int amount = ((Property) e).getRent();

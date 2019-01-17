@@ -3,6 +3,7 @@ package monopoly.main;
 import java.util.ArrayList;
 import java.util.List;
 
+import monopoly.entities.Country;
 import monopoly.entities.Entity;
 import monopoly.entities.Property;
 
@@ -10,10 +11,8 @@ public class Player {
 	private String color;
 	private Monopoly game;
 	private boolean inJail;
-	
 	private int funds;
-	//a list of properties owned by the player
-	private List<Property> properties;
+	private List<Property> properties; //a list of properties owned by the player
 	
 	private int currentLocation;
 	
@@ -42,13 +41,14 @@ public class Player {
 	}
 	
 	public void buyProperty(Property property) {
-		properties.add(property);
 		deductFunds(property.getPrice());
+		properties.add(property);
 		property.setOwner(this);
 	}
 	
-	public void buildHouse(Property property) {
-		
+	public void buildHouse(Country country) { //can only build house on countries
+		deductFunds(country.getConstructionPrice());
+		country.addHouses();
 	}
 	
 	public void addFunds(int amount) {
@@ -57,9 +57,6 @@ public class Player {
 	
 	public void deductFunds(int amount) {
 		funds -= amount;
-		if(isBroke()) {
-			//FIXME do something
-		}
 	}
 	
 	//================= getters and setters ===============

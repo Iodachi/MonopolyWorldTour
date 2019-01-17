@@ -2,11 +2,10 @@ package monopoly.test;
 
 import static org.junit.Assert.*;
 
-import java.awt.Color;
-
 import org.junit.*;
 import org.junit.runners.MethodSorters;
 
+import monopoly.entities.Country;
 import monopoly.entities.Property;
 import monopoly.main.InvalidMove;
 import monopoly.main.Monopoly;
@@ -215,6 +214,135 @@ public class Tests {
 			game.buyProperty(p, pro);
 			
 			fail("Should not be able to buy this property, not enough money");
+		} catch (InvalidMove e) {
+			//ok
+		}
+	}
+	
+	//==================== build houses ===================
+	@Test
+	public void test14_buildHouseOK() {
+		Monopoly game = new Monopoly(2, 10000);
+		Player p = game.getCurrentPlayer();
+		try {
+			game.move(p, 4);
+			Property pro = (Property)p.getCurrentEntity();
+			game.buyProperty(p, pro);
+			game.buildHouses(p, (Country)pro);
+			
+			assertEquals(p.getFunds(), 7400);
+			assertTrue(pro.getOwner() == p);
+			assertTrue(((Country) pro).getHouses() == 1);
+			
+			game.buildHouses(p, (Country)pro);
+			game.buildHouses(p, (Country)pro);
+			assertEquals(p.getFunds(), 5400);
+			assertTrue(((Country) pro).getHouses() == 0);
+			assertTrue(((Country) pro).getHotels() == 1);
+		} catch (InvalidMove e) {
+			fail(e.getMessage());
+		}
+	}
+	
+	@Test
+	public void test15_buildHouseWrongLocation() {
+		Monopoly game = new Monopoly(2, 10000);
+		Player p = game.getCurrentPlayer();
+		try {
+			game.move(p, 4);
+			Property pro = (Property)p.getCurrentEntity();
+			game.buyProperty(p, pro);
+			game.move(p, 1);
+			game.buildHouses(p, (Country)pro);
+			
+			fail("Should not be able to build house on the property, player not at its location.");
+		} catch (InvalidMove e) {
+			//ok
+		}
+	}
+	
+	@Test
+	public void test16_buildHouseMaxNum() {
+		Monopoly game = new Monopoly(2, 10000);
+		Player p = game.getPlayers().get(0);
+		try {
+			game.move(p, 4);
+			Property pro = (Property)p.getCurrentEntity();
+			game.buyProperty(p, pro);
+			game.buildHouses(p, (Country)pro);
+			game.buildHouses(p, (Country)pro);
+			game.buildHouses(p, (Country)pro);
+			game.buildHouses(p, (Country)pro);
+			game.buildHouses(p, (Country)pro);
+			game.buildHouses(p, (Country)pro);	//reached max - 2 hotels
+			
+			game.buildHouses(p, (Country)pro);
+			fail("Should not be able to build house on the property, the property already has 2 hotels and cannot build more.");
+		} catch (InvalidMove e) {
+			//ok
+		}
+	}
+	
+	@Test
+	public void test17_buildHouseNotOwned() {
+		Monopoly game = new Monopoly(2, 10000);
+		Player p = game.getPlayers().get(0);
+		try {
+			game.move(p, 4);
+			Property pro = (Property)p.getCurrentEntity();
+			game.buildHouses(p, (Country)pro);
+			
+			fail("Should not be able to build house on the property, the property is not owned by player.");
+		} catch (InvalidMove e) {
+			//ok
+		}
+	}
+	
+	@Test
+	public void test18_buildHouseWrongPlayer() {
+		Monopoly game = new Monopoly(2, 10000);
+		Player p = game.getPlayers().get(0);
+		try {
+			game.move(p, 4);
+			Property pro = (Property)p.getCurrentEntity();
+			game.buyProperty(p, pro);
+			game.nextPlayer();
+			game.buildHouses(p, (Country)pro);
+			
+			fail("Should not be able to build house on the property, not player's turn.");
+		} catch (InvalidMove e) {
+			//ok
+		}
+	}
+	
+	@Test
+	public void test19_buildHousePlayerInJail() {
+		Monopoly game = new Monopoly(2, 10000);
+		Player p = game.getCurrentPlayer();
+		try {
+			game.move(p, 4);
+			Property pro = (Property)p.getCurrentEntity();
+			game.buyProperty(p, pro);
+			p.goToJail(true);
+			game.buildHouses(p, (Country)pro);
+			
+			fail("Should not be able to build house on the property, player is in jail.");
+		} catch (InvalidMove e) {
+			//ok
+		}
+	}
+	
+	@Test
+	public void test20_buildHouseNotEnoughMoney() {
+		Monopoly game = new Monopoly(2, 2000);
+		Player p = game.getCurrentPlayer();
+		try {
+			game.move(p, 4);
+			Property pro = (Property)p.getCurrentEntity();
+			game.buyProperty(p, pro);
+			game.buildHouses(p, (Country)pro);
+			
+			fail("Should not be able to build house on this property, not enough money");
 		} catch (InvalidMove e) {
 			//ok
 		}

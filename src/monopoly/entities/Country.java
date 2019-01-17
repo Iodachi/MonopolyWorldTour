@@ -87,6 +87,14 @@ public class Country extends Entity implements Property{
 		return houses;
 	}
 	
+	public void addHouses() {
+		if(houses < 2)	houses++;
+		else if(houses == 2) {
+			hotels++;
+			houses = 0;
+		}
+	}
+	
 	public int getHotels() {
 		return hotels;
 	}

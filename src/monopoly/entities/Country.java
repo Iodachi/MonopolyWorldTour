@@ -23,7 +23,7 @@ public class Country extends Entity implements Property{
 	private int mortgagePrice;
 	//the houses being constructed in this property, the more houses, the higher rent
 	private int houses;
-	//when there are already two hourses, adding another one will form into one hotel, max two hotels in one property
+	//when there are already two houses, adding another one will form into one hotel, max two hotels in one property
 	private int hotels;
 	private Player owner = null;
 	private String name;
@@ -87,12 +87,20 @@ public class Country extends Entity implements Property{
 		return houses;
 	}
 	
-	public void addHouses() {
-		if(houses < 2)	houses++;
-		else if(houses == 2) {
+	/**
+	 * build a house on current country
+	 * @return
+	 * 			- true if the houses reaches 3 and turns into a hotel
+	 */
+	public boolean addHouses() {
+		if(houses < 2) {
+			houses++;
+		} else if (houses == 2) {
 			hotels++;
 			houses = 0;
+			return true;
 		}
+		return false;
 	}
 	
 	public int getHotels() {
@@ -111,5 +119,9 @@ public class Country extends Entity implements Property{
 
 	public void setColourGroup(ColourGroup colourGroup) {
 		this.colourGroup = colourGroup;
+	}
+	
+	public String toString() {
+		return "<COUNTRY - " + name + ">";
 	}
 }

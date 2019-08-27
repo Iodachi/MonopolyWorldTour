@@ -7,5 +7,8 @@ public class Fate extends Entity{
 	public Fate(Monopoly game) {
 		super(game);
 	}
-
+	
+	public String toString() {
+		return "<FATE>";
+	}
 }

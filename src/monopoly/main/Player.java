@@ -46,9 +46,9 @@ public class Player {
 		property.setOwner(this);
 	}
 	
-	public void buildHouse(Country country) { //can only build house on countries
+	public boolean buildHouse(Country country) { //can only build house on countries
 		deductFunds(country.getConstructionPrice());
-		country.addHouses();
+		return country.addHouses();
 	}
 	
 	public void addFunds(int amount) {

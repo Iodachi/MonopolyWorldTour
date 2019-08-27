@@ -9,4 +9,8 @@ public class Tax extends Entity{
 		super(game);
 		this.name = name;
 	}
+	
+	public String toString() {
+		return "<TAX>";
+	}
 }

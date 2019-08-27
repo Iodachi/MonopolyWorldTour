@@ -8,4 +8,7 @@ public class CarPark extends Entity{
 		super(game);
 	}
 
+	public String toString() {
+		return "<CARPARK>";
+	}
 }

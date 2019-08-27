@@ -41,4 +41,8 @@ public class Company extends Entity implements Property{
 	public int getPrice() {
 		return price;
 	}
+	
+	public String toString() {
+		return "<COMPANY - " + name + ">";
+	}
 }

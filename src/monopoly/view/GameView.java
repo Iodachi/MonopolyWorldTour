@@ -9,6 +9,7 @@ import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JSplitPane;
+import javax.swing.JTextArea;
 import javax.swing.WindowConstants;
 
 import monopoly.controller.Controller;
@@ -48,6 +49,14 @@ public class GameView extends JComponent implements Observer{
 		return board;
 	}
 
+	public JPanel getPlayerInfoPanel() {
+		return ((UtilityPanel) utility).getPlayerInfoPanel();
+	}
+	
+	public JTextArea getTextOutputArea() {
+		return ((UtilityPanel) utility).getTextOutputArea();
+	}
+	
 	@Override
 	public void update(Observable o, Object arg) {
 		f.repaint();

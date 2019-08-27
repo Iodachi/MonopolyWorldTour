@@ -25,7 +25,7 @@ public class Monopoly extends Observable{
 	/**
 	 * 
 	 * @param numOfPlayers
-	 * 				- numebr of players take part in the game
+	 * 				- number of players take part in the game
 	 * @throws InvalidMove 
 	 */
 	public Monopoly(int numOfPlayers, int startingFunds) {
@@ -185,6 +185,7 @@ public class Monopoly extends Observable{
 	 * @param player
 	 * @param country
 	 * @throws InvalidMove
+	 * 
 	 */
 	public void buildHouses(Player player, Country country) throws InvalidMove {
 		Entity currentEntity = board.getEntities().get(player.getCurrentLocation());
@@ -219,6 +220,16 @@ public class Monopoly extends Observable{
 		player.buildHouse(country);
 	}
 	
+	/**
+	 * Player pays rent when passes someone else's property
+	 * @param payer
+	 * 				- the one who needs to pay
+	 * @param getter
+	 * 				- the one who gets the money
+	 * @param amount
+	 * 				- amount of money needs to pay
+	 * @throws InvalidMove
+	 */
 	public void payRent(Player payer, Player getter, int amount) throws InvalidMove {
 		if(payer == getter) {
 			throw new InvalidMove("Player cannot pay himself");
@@ -234,6 +245,21 @@ public class Monopoly extends Observable{
 	
 	public List<Player> getPlayers(){
 		return players;
+	}
+	
+	/**
+	 * Get the funds a certain player has
+	 * @param playerName
+	 * @return
+	 * 			- -1 if no such player found
+	 */
+	public int getPlayerFunds(String playerName) {
+		for (Player p: players) {
+			if(p.getColor() == playerName) {
+				return p.getFunds();
+			}
+		}
+		return -1;
 	}
 	
 	public Board getBoard() {

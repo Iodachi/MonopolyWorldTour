@@ -57,4 +57,8 @@ public class Airport extends Entity implements Property{
 	public String getName() {
 		return name;
 	}
+	
+	public String toString() {
+		return "<AIRPORT>";
+	}
 }

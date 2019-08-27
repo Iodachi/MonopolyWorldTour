@@ -8,4 +8,7 @@ public class Start extends Entity{
 		super(game);
 	}
 
+	public String toString() {
+		return "<START>";
+	}
 }

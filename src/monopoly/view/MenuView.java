@@ -32,7 +32,7 @@ public class MenuView {
 		text.add(infoText, BorderLayout.CENTER);
 		text.setMinimumSize(new Dimension(600, 400));
 		
-		//the panel that contians the three buttons
+		//the panel that contains the three buttons
 		JPanel startquit = new JPanel();
 		startquit.setLayout(new GridLayout(3, 1));
 		

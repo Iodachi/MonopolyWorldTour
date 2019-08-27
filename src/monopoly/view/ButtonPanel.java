@@ -22,9 +22,14 @@ public class ButtonPanel extends JToolBar {
 		roll.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ev) {
 				Player currentPlayer = game.getCurrentPlayer();
+				String playerName = currentPlayer.getColor();
+				String playerLocation = currentPlayer.getCurrentEntity().toString();
 				try {
 					step = game.roll(game.getCurrentPlayer());
+					view.getTextOutputArea().append("Player <" + playerName + "> rolled a dice of <" + step + ">.\n");
 					game.move(game.getCurrentPlayer(), step);
+					view.getTextOutputArea().append("Player <" + playerName + "> moved from location" + playerLocation + " to location" + currentPlayer.getCurrentEntity().toString() + ".\n");
+					
 					view.getBoardPanel().repaint();
 					game.setMovingStage(false);
 
@@ -34,22 +39,30 @@ public class ButtonPanel extends JToolBar {
 					if(e instanceof Property) {
 						name = ((Property) e).getName();
 
-						if(status == 1) {
+						if(status == 1) {	//buy property
 							int option = JOptionPane.showConfirmDialog(null, name + " is not occupied, $" + ((Property) e).getPrice() + ".\nDo you wish to buy it?", "Waiting player buy property...", JOptionPane.YES_NO_OPTION);
-							if(option == JOptionPane.YES_OPTION)
+							if(option == JOptionPane.YES_OPTION) {
 								game.buyProperty(currentPlayer, (Property)e);
-						} else if(status == 2) {	//build house
+								view.getTextOutputArea().append("Player <" + playerName + "> bought the property <" + name + ">.\n");
+							}
+						} else if(status == 2) {	//build house on owned property
 							int option = JOptionPane.showConfirmDialog(null, name + " is occupied by yourself, $" + ((Country) e).getConstructionPrice() + ".\nDo you wish to build house?", "Waiting player build house...", JOptionPane.YES_NO_OPTION);
-							if(option == JOptionPane.YES_OPTION)
+							if(option == JOptionPane.YES_OPTION) {
 								game.buildHouses(currentPlayer, (Country)e);
-						} else if(status == 3) {
+								view.getTextOutputArea().append("Player <" + playerName + "> build a house on property + <" + name + ">.\n");
+								//view.getTextOutputArea().append("The number of houses on property <" + name + "> reaches 3 and it turns into a hotel!\n");
+							}
+						} else if(status == 3) {	//pay rent when passes others' property
 							Player owner = ((Property) e).getOwner();
 							int amount = ((Property) e).getRent();
 							JOptionPane.showMessageDialog(null, name + " is occupied by " + owner.getColor() + "\nYou need to pay $" + amount, "Waiting player pay rent...", JOptionPane.PLAIN_MESSAGE);
 							game.payRent(currentPlayer, owner, amount);
+							view.getTextOutputArea().append("Player <" + playerName + "> passed player <" + owner.getColor() + ">'s property <"
+									+ name + "> and paid <" + amount + ">.\n");
 						}
 					}
 					
+					System.out.println(view.getPlayerInfoPanel());
 					view.getBoardPanel().repaint();
 					game.nextPlayer();
 					game.setMovingStage(true);

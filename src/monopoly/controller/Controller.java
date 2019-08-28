@@ -1,5 +1,6 @@
 package monopoly.controller;
 
+import java.awt.Component;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
 import java.awt.event.KeyEvent;
@@ -8,6 +9,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 import monopoly.main.Monopoly;
+import monopoly.view.EntityPanel;
 import monopoly.view.GameView;
 
 public class Controller implements MouseListener, KeyListener, ComponentListener{
@@ -69,6 +71,7 @@ public class Controller implements MouseListener, KeyListener, ComponentListener
 
 	@Override
 	public void mousePressed(MouseEvent e) {
+		System.out.println("aaa");
 		// TODO Auto-generated method stub
 		
 	}
@@ -81,6 +84,12 @@ public class Controller implements MouseListener, KeyListener, ComponentListener
 
 	@Override
 	public void mouseEntered(MouseEvent e) {
+		System.out.println("bbb");
+		Component component = e.getComponent();
+		if(component != null) {
+			System.out.println(component);
+		}
+		
 		// TODO Auto-generated method stub
 		
 	}

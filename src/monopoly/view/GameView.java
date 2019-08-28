@@ -23,7 +23,7 @@ public class GameView extends JComponent implements Observer{
 	
 	public GameView(Monopoly game) {
 		this.game = game;
-		//game.addObserver(this);
+		game.addObserver(this);
 		f = new JFrame("The Monopoly - World Tour");
 		f.setLayout(new BorderLayout());
 		f.pack();
@@ -37,7 +37,7 @@ public class GameView extends JComponent implements Observer{
 		JSplitPane split = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT);
 		split.setDividerSize(2);
 		split.setContinuousLayout(true); 	
-		split.setResizeWeight(1);			 
+		split.setResizeWeight(1); 
 		split.setBorder(BorderFactory.createEmptyBorder());
 		split.setLeftComponent(board);
 		split.setRightComponent(utility);

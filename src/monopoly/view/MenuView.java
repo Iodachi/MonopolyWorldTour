@@ -43,6 +43,7 @@ public class MenuView {
 				//Monopoly game = new Monopoly();
 				f.setVisible(false);
 				//SwingUtilities.invokeLater(()->new GameView(game));
+				//TODO: print new game messages
 			}
 		});
 		

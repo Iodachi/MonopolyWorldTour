@@ -76,6 +76,7 @@ public class Board {
 		propertyNames.add("England");		propertyNames.add("Italy");		propertyNames.add("Switzerland");propertyNames.add("Russia");
 		propertyNames.add("America");		propertyNames.add("Japan");
 		
+		//set the position of entities on board
 		for(int i = 0; i < entities.size(); i++) {
 			Entity e = entities.get(i);
 			if(i == 0 || i == 9 || i == 15 || i == 24)
@@ -90,9 +91,10 @@ public class Board {
 	}
 	
 	/**
-	 * get the index of a property given its name, return -1 if not found
+	 * get the index of a property given its name
 	 * @param name
 	 * @return
+	 * 			- -1 if not found
 	 */
 	public int findPropertyByName(String name) {
 		for(Entity e: entities) {

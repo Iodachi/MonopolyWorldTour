@@ -42,29 +42,46 @@ public class ButtonPanel extends JToolBar {
 						if(status == 1) {	//buy property
 							int option = JOptionPane.showConfirmDialog(null, name + " is not occupied, $" + ((Property) e).getPrice() + ".\nDo you wish to buy it?", "Waiting player buy property...", JOptionPane.YES_NO_OPTION);
 							if(option == JOptionPane.YES_OPTION) {
-								game.buyProperty(currentPlayer, (Property)e);
-								view.getTextOutputArea().append("Player <" + playerName + "> bought the property <" + name + ">.\n");
+								try {
+									game.buyProperty(currentPlayer, (Property)e);
+									view.getTextOutputArea().append("Player <" + playerName + "> bought the property <" + name + ">.\n");
+								}catch(InvalidMove i) {
+									view.getTextOutputArea().append("Player <" + playerName + "> failed to buy the property <" + name +">: " + i.getMessage() + ".\n");
+								}
 							}
 						} else if(status == 2) {	//build house on owned property
 							int option = JOptionPane.showConfirmDialog(null, name + " is occupied by yourself, $" + ((Country) e).getConstructionPrice() + ".\nDo you wish to build house?", "Waiting player build house...", JOptionPane.YES_NO_OPTION);
 							if(option == JOptionPane.YES_OPTION) {
-								game.buildHouses(currentPlayer, (Country)e);
-								view.getTextOutputArea().append("Player <" + playerName + "> build a house on property + <" + name + ">.\n");
-								//view.getTextOutputArea().append("The number of houses on property <" + name + "> reaches 3 and it turns into a hotel!\n");
+								try {
+									game.buildHouses(currentPlayer, (Country)e);
+									view.getTextOutputArea().append("Player <" + playerName + "> built a house on property <" + name + ">.\n");
+									//view.getTextOutputArea().append("The number of houses on property <" + name + "> reaches 3 and it turns into a hotel!\n");
+								}catch(InvalidMove i) {
+									view.getTextOutputArea().append("Player <" + playerName + "> failed to build a house on property <" + name + ">: " + i.getMessage() + ".\n");
+								}
 							}
 						} else if(status == 3) {	//pay rent when passes others' property
 							Player owner = ((Property) e).getOwner();
 							int amount = ((Property) e).getRent();
 							JOptionPane.showMessageDialog(null, name + " is occupied by " + owner.getColor() + "\nYou need to pay $" + amount, "Waiting player pay rent...", JOptionPane.PLAIN_MESSAGE);
-							game.payRent(currentPlayer, owner, amount);
-							view.getTextOutputArea().append("Player <" + playerName + "> passed player <" + owner.getColor() + ">'s property <"
+							try {
+								game.payRent(currentPlayer, owner, amount);
+								view.getTextOutputArea().append("Player <" + playerName + "> passed player <" + owner.getColor() + ">'s property <"
 									+ name + "> and paid <" + amount + ">.\n");
+							}catch(InvalidMove i) {
+								view.getTextOutputArea().append("Player <" + playerName + "> failed to pay rent <" + amount +"> to <" + owner.getColor() + ">: " + i.getMessage() + ".\n");
+							}
 						}
 					}
 					
-					System.out.println(view.getPlayerInfoPanel());
+					//repaint player info panel
+					PlayerInfoPanel playerInfo = (PlayerInfoPanel) view.getPlayerInfoPanel();
+					playerInfo.setPlayerInfoText();
+					
 					view.getBoardPanel().repaint();
 					game.nextPlayer();
+					Player nextPlayer = game.getCurrentPlayer();
+					view.getTextOutputArea().append("========== Player <" + nextPlayer.getColor() + ">'s turn ==========");
 					game.setMovingStage(true);
 				} catch (InvalidMove e) {
 					System.out.println(e.getMessage());

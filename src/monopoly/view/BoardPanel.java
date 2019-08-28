@@ -48,10 +48,6 @@ public class BoardPanel extends JPanel{
 		images = new HashMap<String, Image>();
 
 		try {
-			for(String name: game.getBoard().getPropertyNames()) {
-				images.put(name, ImageIO.read(this.getClass().getResource(name + ".png")));
-			}
-			
 			images.put("Blue", ImageIO.read(this.getClass().getResource("Blue.png")));
 			images.put("Red", ImageIO.read(this.getClass().getResource("Red.png")));
 			images.put("Yellow", ImageIO.read(this.getClass().getResource("Yellow.png")));
@@ -64,17 +60,6 @@ public class BoardPanel extends JPanel{
 	@Override
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
-
-		//draw the pictures of entities
-//		for(String name: game.getBoard().getPropertyNames()) {
-//			int index = game.getBoard().findPropertyByName(name);
-//			Entity property = game.getBoard().getEntities().get(index);
-//			if((index > 0 && index < 9) || (index > 15 && index < 24)){
-//				g.drawImage(images.get(name), property.getXPos(), property.getYPos(), (int)ENTITY_WIDTH, (int)ENTITY_HEIGHT, null);
-//			} else {
-//				g.drawImage(images.get(name), property.getXPos(), property.getYPos(), (int)ENTITY_HEIGHT, (int)ENTITY_WIDTH, null);
-//			}
-//		}
 
 		//draw the board frame
 		g.drawLine(100, 100, (int) (ENTITY_WIDTH * 8 + ENTITY_HEIGHT * 2 + 100), 100);

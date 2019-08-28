@@ -4,8 +4,10 @@ import java.awt.Color;
 import java.awt.GridLayout;
 import java.util.List;
 
+import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 import javax.swing.JTextPane;
+import javax.swing.border.Border;
 import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
 
@@ -18,6 +20,7 @@ public class PlayerInfoPanel extends JPanel{
 	private Controller controller;
 	private JTextPane paneBlue, paneRed, paneYellow, paneGreen;
 	private boolean hasYellow, hasGreen;
+	private static final int LAYOUT_GAP = 5;
 	
 	public PlayerInfoPanel(Monopoly game, Controller controller, GameView view) {
 		this.game = game;
@@ -62,6 +65,12 @@ public class PlayerInfoPanel extends JPanel{
 		this.add(paneYellow);
 		this.add(paneGreen);
 		this.setLayout(new GridLayout(2, 2));
+		
+
+		Border title = BorderFactory.createTitledBorder("Player info");
+		Border edge = BorderFactory.createEmptyBorder(LAYOUT_GAP, LAYOUT_GAP, LAYOUT_GAP, LAYOUT_GAP);
+		Border border = BorderFactory.createCompoundBorder(title, edge);
+		this.setBorder(border);
 	}
 	
 	public void setPlayerInfoText() {

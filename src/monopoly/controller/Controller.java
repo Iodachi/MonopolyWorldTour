@@ -71,7 +71,6 @@ public class Controller implements MouseListener, KeyListener, ComponentListener
 
 	@Override
 	public void mousePressed(MouseEvent e) {
-		System.out.println("aaa");
 		// TODO Auto-generated method stub
 		
 	}
@@ -84,10 +83,9 @@ public class Controller implements MouseListener, KeyListener, ComponentListener
 
 	@Override
 	public void mouseEntered(MouseEvent e) {
-		System.out.println("bbb");
 		Component component = e.getComponent();
 		if(component != null) {
-			System.out.println(component);
+			//TODO
 		}
 		
 		// TODO Auto-generated method stub

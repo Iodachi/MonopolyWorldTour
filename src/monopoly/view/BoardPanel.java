@@ -35,6 +35,7 @@ public class BoardPanel extends JPanel{
 			try {
 				EntityPanel entity = new EntityPanel(game, name);
 				this.add(entity);
+				entity.addMouseListener(controller);
 			} catch (IOException e) {
 				e.printStackTrace();
 			}

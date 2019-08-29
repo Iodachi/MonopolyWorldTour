@@ -85,17 +85,22 @@ public class Controller implements MouseListener, KeyListener, ComponentListener
 	public void mouseEntered(MouseEvent e) {
 		Component component = e.getComponent();
 		if(component != null) {
-			//TODO
+			if(component instanceof EntityPanel) {
+				System.out.println("Entered entity");
+				((EntityPanel) component).showEntityInfoPanel();
+			}
 		}
-		
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
 	public void mouseExited(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
+		Component component = e.getComponent();
+		if(component != null) {
+			if(component instanceof EntityPanel) {
+				System.out.println("Exited entity");
+				((EntityPanel) component).hideEntityInfoPanel();
+			}
+		}
 	}
 
 }
